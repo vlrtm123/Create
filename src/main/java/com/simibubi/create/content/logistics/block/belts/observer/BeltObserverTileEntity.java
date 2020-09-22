@@ -52,6 +52,8 @@ public class BeltObserverTileEntity extends SmartTileEntity {
 		BeltTileEntity controllerTE = beltTE.getControllerTE();
 		if (controllerTE == null)
 			return;
+		if (controllerTE.getInventory() == null)
+			return;
 
 		controllerTE.getInventory().forEachWithin(beltTE.index + .5f, .45f, stack -> {
 			if (filtering.test(stack.stack) && turnOffTicks != 6) {

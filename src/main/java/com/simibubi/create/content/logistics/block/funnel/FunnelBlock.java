@@ -143,6 +143,8 @@ public class FunnelBlock extends AttachedLogisticalBlock
 			BeltTileEntity controllerBelt = belt.getControllerTE();
 			if (controllerBelt == null)
 				return;
+			if (controllerBelt.getInventory() == null)
+				return;
 
 			controllerBelt.getInventory().forEachWithin(belt.index + .5f, .55f, (transportedItemStack) -> {
 				controllerBelt.getInventory().eject(transportedItemStack);

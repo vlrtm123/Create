@@ -9,7 +9,6 @@ import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Direction.AxisDirection;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -46,8 +45,8 @@ public class BeltGenerator extends SpecialBlockStateGen {
 		if (!casing && pulley)
 			part = Part.MIDDLE;
 
-		if ((!casing && vertical && negative || casing && diagonal && negative != (direction.getAxis() == Axis.X))
-			&& part != Part.MIDDLE && !pulley)
+		boolean notMiddle = part != Part.MIDDLE;
+		if ((vertical && negative || slope == Slope.DOWNWARD && casing) && notMiddle && !pulley)
 			part = part == Part.END ? Part.START : Part.END;
 
 		if (!casing && vertical)

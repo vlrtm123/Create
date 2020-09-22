@@ -5,13 +5,13 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.simibubi.create.content.contraptions.base.KineticTileEntity;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTileEntities;
 import com.simibubi.create.content.contraptions.base.HorizontalKineticBlock;
+import com.simibubi.create.content.contraptions.base.KineticTileEntity;
 import com.simibubi.create.content.contraptions.relays.belt.transport.BeltMovementHandler.TransportedEntityInfo;
 import com.simibubi.create.content.logistics.block.belts.tunnel.BeltTunnelBlock;
 import com.simibubi.create.content.schematics.ISpecialBlockItemRequirement;
@@ -133,9 +133,12 @@ public class BeltBlock extends HorizontalKineticBlock implements ITE<BeltTileEnt
 	@Override
 	public void spawnAdditionalDrops(BlockState state, World worldIn, BlockPos pos, ItemStack stack) {
 		BeltTileEntity controllerTE = BeltHelper.getControllerTE(worldIn, pos);
-		if (controllerTE != null)
-			controllerTE.getInventory()
-				.ejectAll();
+		if (controllerTE == null)
+			return;
+		if (controllerTE.getInventory() == null)
+			return;
+		controllerTE.getInventory()
+			.ejectAll();
 	}
 
 	@Override
@@ -250,6 +253,8 @@ public class BeltBlock extends HorizontalKineticBlock implements ITE<BeltTileEnt
 		if (isHand) {
 			BeltTileEntity controllerBelt = belt.getControllerTE();
 			if (controllerBelt == null)
+				return ActionResultType.PASS;
+			if (controllerBelt.getInventory() == null)
 				return ActionResultType.PASS;
 			if (worldIn.isRemote)
 				return ActionResultType.SUCCESS;

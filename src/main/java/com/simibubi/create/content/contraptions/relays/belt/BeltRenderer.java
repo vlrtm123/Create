@@ -68,9 +68,7 @@ public class BeltRenderer extends SafeTileEntityRenderer<BeltTileEntity> {
 				textureIndex += 16;
 
 			beltBuffer.shiftUVtoSheet(AllSpriteShifts.BELT, (textureIndex % 4) / 4f, (textureIndex / 4) / 4f, 4);
-		} else {
-			beltBuffer.dontShiftUV();
-		}
+		} 
 		
 		IVertexBuilder vb = buffer.getBuffer(RenderType.getSolid());
 

@@ -179,8 +179,6 @@ public class MechanicalCrafterRenderer extends SafeTileEntityRenderer<Mechanical
 			if (te.phase == Phase.EXPORTING) {
 				int textureIndex = (int) ((te.getCountDownSpeed() / 128f * AnimationTickHolder.ticks));
 				beltBuffer.shiftUVtoSheet(AllSpriteShifts.CRAFTER_THINGIES, (textureIndex % 4) / 4f, 0, 1);
-			} else {
-				beltBuffer.dontShiftUV();
 			}
 
 			beltBuffer.renderInto(ms, vb);

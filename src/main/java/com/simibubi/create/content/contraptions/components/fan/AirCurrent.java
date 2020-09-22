@@ -287,6 +287,8 @@ public class AirCurrent {
 			BeltTileEntity controller = belt.getControllerTE();
 			if (controller == null)
 				continue;
+			if (controller.getInventory() == null)
+				continue;
 
 			controller.getInventory().forEachWithin(belt.index + .5f, .51f, (transported) -> {
 				InWorldProcessing.spawnParticlesForProcessing(world,
