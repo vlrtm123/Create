@@ -42,7 +42,8 @@ public class RedstoneContactBlock extends ProperDirectionalBlock implements IPor
 		BlockState state = getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
 		Direction placeDirection = context.getFace().getOpposite();
 
-		if (context.getPlayer().isSneaking() || hasValidContact(context.getWorld(), context.getPos(), placeDirection))
+		boolean sneaking = context.getPlayer() != null && context.getPlayer().isSneaking();
+		if (sneaking || hasValidContact(context.getWorld(), context.getPos(), placeDirection))
 			state = state.with(FACING, placeDirection);
 		if (hasValidContact(context.getWorld(), context.getPos(), state.get(FACING)))
 			state = state.with(POWERED, true);

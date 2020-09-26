@@ -15,7 +15,7 @@ public class WrenchItem extends Item {
 	@Override
 	public ActionResultType onItemUse(ItemUseContext context) {
 		PlayerEntity player = context.getPlayer();
-		if (!player.isAllowEdit())
+		if (player == null || !player.isAllowEdit())
 			return super.onItemUse(context);
 		
 		BlockState state = context.getWorld().getBlockState(context.getPos());

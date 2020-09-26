@@ -57,7 +57,7 @@ public class TreeFertilizerItem extends Item {
 				context.getWorld().setBlockState(actualPos, world.getBlockState(pos));
 			}
 
-			if (!context.getPlayer().isCreative())
+			if (context.getPlayer() != null && !context.getPlayer().isCreative())
 				context.getItem().shrink(1);
 			return ActionResultType.SUCCESS;
 

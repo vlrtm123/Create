@@ -45,8 +45,9 @@ public class EncasedFanBlock extends DirectionalKineticBlock implements ITE<Enca
 		Direction preferredFacing = getPreferredFacing(context);
 		if (preferredFacing == null)
 			preferredFacing = context.getNearestLookingDirection();
+		boolean sneaking = context.getPlayer() != null && context.getPlayer().isSneaking();
 		return getDefaultState().with(FACING,
-				context.getPlayer().isSneaking() ? preferredFacing : preferredFacing.getOpposite());
+				sneaking ? preferredFacing : preferredFacing.getOpposite());
 	}
 
 	protected void blockUpdate(BlockState state, World worldIn, BlockPos pos) {

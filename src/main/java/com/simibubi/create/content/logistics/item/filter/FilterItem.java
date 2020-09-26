@@ -59,6 +59,8 @@ public class FilterItem extends Item implements INamedContainerProvider {
 
 	@Override
 	public ActionResultType onItemUse(ItemUseContext context) {
+		if (context.getPlayer() == null)
+			return ActionResultType.PASS;
 		return onItemRightClick(context.getWorld(), context.getPlayer(), context.getHand()).getType();
 	}
 

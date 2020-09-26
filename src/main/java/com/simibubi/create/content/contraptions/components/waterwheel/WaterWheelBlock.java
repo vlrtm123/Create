@@ -133,9 +133,11 @@ public class WaterWheelBlock extends HorizontalKineticBlock implements ITE<Water
 		BlockState placedOn = context.getWorld().getBlockState(context.getPos().offset(facing.getOpposite()));
 		if (AllBlocks.WATER_WHEEL.has(placedOn))
 			return getDefaultState().with(HORIZONTAL_FACING, placedOn.get(HORIZONTAL_FACING));
-		if (facing.getAxis().isHorizontal())
+		if (facing.getAxis().isHorizontal()) {
+			boolean sneaking = context.getPlayer() != null && context.getPlayer().isSneaking();
 			return getDefaultState().with(HORIZONTAL_FACING,
-					context.getPlayer().isSneaking() ? facing.getOpposite() : facing);
+					sneaking ? facing.getOpposite() : facing);
+		}
 		return super.getStateForPlacement(context);
 	}
 

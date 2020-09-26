@@ -54,7 +54,8 @@ public class HandCrankBlock extends DirectionalKineticBlock implements ITE<HandC
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		Direction preferred = getPreferredFacing(context);
-		if (preferred == null || context.getPlayer().isSneaking())
+		boolean sneaking = context.getPlayer() != null && context.getPlayer().isSneaking();
+		if (preferred == null || sneaking)
 			return getDefaultState().with(FACING, context.getFace());
 		return getDefaultState().with(FACING, preferred.getOpposite());
 	}

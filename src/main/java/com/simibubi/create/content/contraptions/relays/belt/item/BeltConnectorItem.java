@@ -50,6 +50,9 @@ public class BeltConnectorItem extends BlockItem {
 
 	@Override
 	public ActionResultType onItemUse(ItemUseContext context) {
+		if (context.getPlayer() == null)
+			return ActionResultType.PASS;
+		
 		if (context.getPlayer()
 				.isSneaking()) {
 			context.getItem()

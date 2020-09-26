@@ -51,6 +51,9 @@ public class SymmetryWandItem extends Item {
 	@Override
 	public ActionResultType onItemUse(ItemUseContext context) {
 		PlayerEntity player = context.getPlayer();
+		if (player == null)
+			return ActionResultType.PASS;
+		
 		BlockPos pos = context.getPos();
 		player.getCooldownTracker()
 			.setCooldown(this, 5);

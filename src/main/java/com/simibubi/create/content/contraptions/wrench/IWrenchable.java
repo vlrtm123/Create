@@ -50,7 +50,7 @@ public interface IWrenchable {
 		World world = context.getWorld();
 		BlockPos pos = context.getPos();
 		PlayerEntity player = context.getPlayer();
-		if (world instanceof ServerWorld) {
+		if (world instanceof ServerWorld && player != null) {
 			if (!player.isCreative())
 				Block.getDrops(state, (ServerWorld) world, pos, world.getTileEntity(pos), player, context.getItem())
 					.forEach(itemStack -> {

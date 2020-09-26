@@ -49,7 +49,7 @@ public class SuperGlueItem extends Item {
 		PlayerEntity playerentity = context.getPlayer();
 		ItemStack itemstack = context.getItem();
 
-		if (playerentity != null && !this.canPlace(playerentity, direction, itemstack, blockpos1))
+		if (playerentity == null || !this.canPlace(playerentity, direction, itemstack, blockpos1))
 			return ActionResultType.FAIL;
 
 		World world = context.getWorld();

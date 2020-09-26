@@ -102,8 +102,9 @@ public class SequencedGearshiftBlock extends HorizontalAxisKineticBlock implemen
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		Axis preferredAxis = RotatedPillarKineticBlock.getPreferredAxis(context);
-		if (preferredAxis != null && !context.getPlayer()
-			.isSneaking())
+		boolean sneaking = context.getPlayer() != null && context.getPlayer()
+			.isSneaking();
+		if (preferredAxis != null && !sneaking)
 			return withAxis(preferredAxis, context);
 		return withAxis(context.getNearestLookingDirection()
 			.getAxis(), context);

@@ -82,8 +82,9 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock implements IT
 		BlockState blockState = context.getWorld()
 			.getBlockState(placedOnPos);
 
-		if ((blockState.getBlock() != this) || context.getPlayer()
-			.isSneaking()) {
+		boolean sneaking = context.getPlayer() != null && context.getPlayer()
+			.isSneaking();
+		if ((blockState.getBlock() != this) || sneaking) {
 			BlockState stateForPlacement = super.getStateForPlacement(context);
 			Direction direction = stateForPlacement.get(HORIZONTAL_FACING);
 			if (direction != face)

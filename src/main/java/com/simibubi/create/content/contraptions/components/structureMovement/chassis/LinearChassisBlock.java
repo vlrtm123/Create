@@ -40,11 +40,11 @@ public class LinearChassisBlock extends AbstractChassisBlock {
 				.getOpposite());
 		BlockState blockState = context.getWorld()
 			.getBlockState(placedOnPos);
-		if (isChassis(blockState) && !context.getPlayer()
-			.isSneaking())
+		boolean sneaking = context.getPlayer() != null && context.getPlayer()
+			.isSneaking();
+		if (isChassis(blockState) && !sneaking)
 			return getDefaultState().with(AXIS, blockState.get(AXIS));
-		if (!context.getPlayer()
-			.isSneaking())
+		if (!sneaking)
 			return getDefaultState().with(AXIS, context.getNearestLookingDirection()
 				.getAxis());
 		return super.getStateForPlacement(context);

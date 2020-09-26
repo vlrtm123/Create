@@ -82,6 +82,9 @@ public abstract class ZapperItem extends Item {
 
 	@Override
 	public ActionResultType onItemUse(ItemUseContext context) {
+		if (context.getPlayer() == null)
+			return super.onItemUse(context);
+		
 		// Shift -> open GUI
 		if (context.getPlayer()
 			.isSneaking()) {

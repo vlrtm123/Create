@@ -298,12 +298,13 @@ public class BeltBlock extends HorizontalKineticBlock implements ITE<BeltTileEnt
 	public ActionResultType onWrenched(BlockState state, ItemUseContext context) {
 		World world = context.getWorld();
 		PlayerEntity player = context.getPlayer();
-
+		boolean returnItem = player != null && !player.isCreative();
+		
 		if (state.get(CASING)) {
 			if (world.isRemote)
 				return ActionResultType.SUCCESS;
 			world.setBlockState(context.getPos(), state.with(CASING, false), 3);
-			if (!player.isCreative())
+			if (returnItem)
 				player.inventory.placeItemBackInInventory(world, AllBlocks.BRASS_CASING.asStack());
 			return ActionResultType.SUCCESS;
 		}
@@ -317,7 +318,7 @@ public class BeltBlock extends HorizontalKineticBlock implements ITE<BeltTileEnt
 				belt.detachKinetics();
 				belt.attachKinetics();
 			}
-			if (!player.isCreative())
+			if (returnItem)
 				player.inventory.placeItemBackInInventory(world, AllBlocks.SHAFT.asStack());
 			return ActionResultType.SUCCESS;
 		}

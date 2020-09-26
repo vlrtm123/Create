@@ -123,6 +123,8 @@ public class SchematicItem extends Item {
 
 	@Override
 	public ActionResultType onItemUse(ItemUseContext context) {
+		if (context.getPlayer() == null)
+			return ActionResultType.PASS;
 		if (!onItemUse(context.getPlayer(), context.getHand()))
 			return super.onItemUse(context);
 		return ActionResultType.SUCCESS;
