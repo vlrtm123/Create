@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import com.feed_the_beast.mods.ftbchunks.api.ChunkDimPos;
+import com.feed_the_beast.mods.ftbchunks.api.ClaimedChunk;
+import com.feed_the_beast.mods.ftbchunks.impl.FTBChunksAPIImpl;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.curiosities.zapper.PlacementPatterns;
@@ -105,6 +108,12 @@ public class BlockzapperItem extends ZapperItem {
 		Direction face = raytrace.getFace();
 
 		for (BlockPos placed : selectedBlocks) {
+			if (player instanceof ServerPlayerEntity) {
+				ClaimedChunk claimedChunk = FTBChunksAPIImpl.INSTANCE.getManager().getChunk(new ChunkDimPos(world, placed));
+				if (claimedChunk != null && !claimedChunk.canEdit((ServerPlayerEntity) player, world.getBlockState(placed))) {
+					continue;
+				}
+			}
 			if (world.getBlockState(placed) == selectedState)
 				continue;
 			if (!selectedState.isValidPosition(world, placed))
@@ -135,7 +144,7 @@ public class BlockzapperItem extends ZapperItem {
 				blocksnapshot.restore(true, false);
 				return false;
 			}
-			setTileData(world, placed, state, data, player);
+			setTileData(world, placed, state, data);
 
 			if (player instanceof ServerPlayerEntity && world instanceof ServerWorld) {
 				ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
